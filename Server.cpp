@@ -44,7 +44,6 @@ Server::Server() : QWidget(){
   }else{
     server_logs->setText(tr("Server is on.\n"));
     connect(server_tcp, SIGNAL(newConnection()), this, SLOT(newPplConnected()));
-    connect(server_tcp, SIGNAL(disconnected()), this, SLOT(pplDisconnected()));
   }
 
   updateServerInfo();
