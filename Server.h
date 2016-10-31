@@ -10,23 +10,33 @@
 
 class Server : public QWidget{
 
+  Q_OBJECT
+
  public:
   Server();
 
+  private slots:
+    void newPplConnected();
+
  private:
-  const int port = 24513;
+    void updateServerInfo();
 
-  int serv_height, serv_width;
-  int off_border_x, off_border_y;
-  int inter_textEdit;
+    const int port = 24513;
 
-  int nclient;
-
-  QTextEdit *server_logs, *server_info;
-  QPushButton *btn_exit;
-
-  qint16 msg_length;
-
+    int serv_height, serv_width;
+    int off_border_x, off_border_y;
+    int inter_textEdit;
+    int nclient;
+    
+    QTextEdit *server_logs, *server_info;
+    
+    QPushButton *btn_exit;
+    
+    QTcpServer *server_tcp;
+    QList<QTcpSocket *> connected_ppl;
+    
+    qint16 msg_length;
+    
 };
 
 #endif
