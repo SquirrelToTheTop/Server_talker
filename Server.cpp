@@ -44,6 +44,7 @@ Server::Server() : QWidget(){
   }else{
     server_logs->setText(tr("Server is on.\n"));
     connect(server_tcp, SIGNAL(newConnection()), this, SLOT(newPplConnected()));
+    connect(server_tcp, SIGNAL(disconnected()), this, SLOT(pplDisconnected()));
   }
 
   updateServerInfo();
@@ -51,7 +52,19 @@ Server::Server() : QWidget(){
 }
 
 void Server::newPplConnected(){
+
+  QTcpSocket *newPpl = server_tcp->nextPendingConnection();
+  connected_ppl << newPpl;
+
   nclient ++;
+  updateServerInfo();
+
+  connect(newPpl, SIGNAL(disconnected()), this, SLOT(pplDisconnected()));
+
+}
+
+void Server::pplDisconnected(){
+  nclient --;
   updateServerInfo();
 }
 

@@ -17,6 +17,7 @@ class Server : public QWidget{
 
   private slots:
     void newPplConnected();
+    void pplDisconnected();
 
  private:
     void updateServerInfo();
